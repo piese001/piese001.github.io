@@ -31,7 +31,9 @@ body {
 
 .info-box, .rooms h3, .clock, .event, .countdown, .overnext {
     margin-bottom: 20px;
+    border: 1px solid #ddd;
     padding: 10px;
+    background-color: #f9f9f9;
     font-size: calc(1vw + 1vh + 0.5vmin); /* Dynamisk textstorlek baserat på viewport-storlek */
 }
 
