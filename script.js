@@ -5,7 +5,7 @@ function getTimeEvents() {
         { start: '09:00', end: '09:20', text: 'Fika', nextStart: '09:20' },
         { start: '09:20', end: '10:20', text: 'Pass 2', nextStart: '10:20' },
         { start: '10:20', end: '10:30', text: 'Rast', nextStart: '10:30' },
-        { start: '10:30', end: '11:30', text: 'Pass 3', nextStart: '11:30' },
+        { start: '10:30', end: '11:30', text: 'Pass 3/Prov i B5', nextStart: '11:30' },
         { start: '11:30', end: '12:20', text: 'Lunch', nextStart: '12:20' },
         { start: '12:20', end: '13:00', text: 'Pass 4', nextStart: '13:00' },
         { start: '13:00', end: '13:10', text: 'Rast', nextStart: '13:10' },
