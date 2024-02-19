@@ -13,7 +13,10 @@ body {
 }
 .schedule, .rooms {
     margin: 10px;
-}
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;}
+
 .info-box {
     margin-bottom: 20px;
     padding: 10px;
