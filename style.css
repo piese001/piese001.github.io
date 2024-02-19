@@ -1,0 +1,12 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+#clock, #currentEvent, #nextEvent, #countdown {
+    margin-bottom: 20px;
+}
+
+#rooms p {
+    margin: 5px 0;
+}
