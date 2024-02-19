@@ -32,3 +32,11 @@ body {
 .rooms h3 {
     margin-top: 0;
 }
+
+.clock {
+    font-size: 24px; /* Större text för klockan */
+}
+
+.event, .countdown {
+    font-weight: bold; /* Fetstil för aktuellt och kommande pass */
+}
