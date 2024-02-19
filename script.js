@@ -52,21 +52,28 @@ function updateContent() {
         
         const overNextEventIndex = (nextEventIndex + 1) % events.length;
         const overNextEvent = events[overNextEventIndex];
-        
+
+        // Nedräkning till nästa pass (minuter och sekunder)
         const nextEventDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), ...nextEvent.start.split(':').map(Number));
+        const diffNext = nextEventDate - now;
+        const minutesNext = Math.floor(diffNext / 60000);
+        const secondsNext = Math.floor((diffNext % 60000) / 1000);
+        document.getElementById('countdown').textContent = `${nextEvent.text} om ${minutesNext} minuter och ${secondsNext} sekunder.`;
+        
+        // Beräknar och visar "över-nästa" event (endast minuter)
         const overNextEventDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), ...overNextEvent.start.split(':').map(Number));
-        if (overNextEventDate <= nextEventDate) {
+        if (overNextEventDate <= now) {
             overNextEventDate.setDate(overNextEventDate.getDate() + 1); // Hanterar övergången över midnatt
         }
         const diffOverNext = overNextEventDate - now;
-        const minutesToOverNext = Math.floor(diffOverNext / 60000);
-
-        document.getElementById('countdown').textContent = `${nextEvent.text} om ${Math.floor((nextEventDate - now) / 60000)} minuter. ${overNextEvent.text} om ${minutesToOverNext} minuter.`;
+        const minutesOverNext = Math.floor(diffOverNext / 60000);
+        document.getElementById('overNextEvent').textContent = `${overNextEvent.text} om ${minutesOverNext} minuter.`;
         
         updateBackgroundColor(currentEvent.text);
     } else {
         document.getElementById('currentEvent').textContent = 'Inget pågående pass.';
         document.getElementById('countdown').textContent = '';
+        document.getElementById('overNextEvent').textContent = ''; // Rensar "över-nästa" event om inget pågående pass finns
         updateBackgroundColor('');
     }
 }
