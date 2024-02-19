@@ -32,6 +32,11 @@ function getCurrentAndNextEvent(now, events) {
     return null;
 }
 
+function updateBackgroundColor(currentEventText) {
+    const specialEvents = ['Fika', 'Rast', 'Lunch', 'Rast/Frukt', 'Skoldagen slut', 'Förberedelse för skoldagen'];
+    document.body.style.backgroundColor = specialEvents.includes(currentEventText) ? 'red' : '';
+}
+
 function updateContent() {
     const now = new Date();
     const events = getTimeEvents();
