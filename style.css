@@ -17,9 +17,23 @@ body {
 }
 
 .schedule {
-    flex: 70%; /* Tilldelar 70% av bredden */
-    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Säkerställer att `.schedule` tar upp hela höjden */
 }
+
+.info-box, .rooms h3, .clock, .event, .countdown, .overnext {
+    flex: 1;
+    margin: 10px; /* Justera detta värde för att kontrollera utrymmet mellan rutorna */
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    font-size: calc(1vw + 1vh + 0.5vmin); /* Dynamisk textstorlek baserat på viewport-storlek */
+
+    /* Andra stilar för `.info-box` behålls */
+}
+
 
 .rooms {
     flex: 30%; /* Tilldelar 30% av bredden */
@@ -29,13 +43,13 @@ body {
     background-color: #f9f9f9;
 }
 
-.info-box, .rooms h3, .clock, .event, .countdown, .overnext {
+/*.info-box, .rooms h3, .clock, .event, .countdown, .overnext {
     margin-bottom: 20px;
     border: 1px solid #ddd;
     padding: 10px;
     background-color: #f9f9f9;
     font-size: calc(1vw + 1vh + 0.5vmin); /* Dynamisk textstorlek baserat på viewport-storlek */
-}
+} */
 
 .rooms {
     /* Borttagen fast bredd för att tillåta flexibel anpassning */
