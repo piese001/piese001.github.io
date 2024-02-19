@@ -1,43 +1,45 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
+    margin: 0; /* Tar bort marginalen för att tillåta fullskärmslayout */
     display: flex;
     justify-content: center;
+    align-items: center; /* Centrerar innehållet vertikalt */
+    height: 100vh; /* Sätter höjden till hela viewport-höjden */
     background-color: #e0ffe9;
 }
 
 .container {
+    width: 90%; /* Justerar bredden för att lämna 5% marginal på varje sida */
+    height: 90%; /* Justerar höjden för att lämna 5% marginal på toppen och botten */
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: stretch; /* Gör så att barn-element sträcker sig för att fylla containerens höjd */
 }
 
-.schedule, .rooms {
+.schedule {
+    flex: 70%; /* Tilldelar 70% av bredden */
     margin: 10px;
 }
 
-.info-box {
+.rooms {
+    flex: 30%; /* Tilldelar 30% av bredden */
+    margin: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.info-box, .rooms h3, .clock, .event, .countdown, .overnext {
     margin-bottom: 20px;
     padding: 10px;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
+    font-size: calc(1vw + 1vh + 0.5vmin); /* Dynamisk textstorlek baserat på viewport-storlek */
 }
 
 .rooms {
-    border: 1px solid #ddd;
-    padding: 10px;
-    background-color: #f9f9f9;
-    width: 200px; /* Justera bredden efter behov */
+    /* Borttagen fast bredd för att tillåta flexibel anpassning */
 }
 
-.rooms h3 {
+.rooms h3, .clock, .event, .countdown, .overnext {
     margin-top: 0;
-}
-
-.clock {
-    font-size: 24px; /* Större text för klockan */
-}
-
-.event, .countdown, .overnext {
-    font-weight: bold; /* Fetstil för aktuellt och kommande pass */
+    /* Övriga stilar behålls oförändrade */
 }
