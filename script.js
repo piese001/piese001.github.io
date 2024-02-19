@@ -11,7 +11,8 @@ function getTimeEvents() {
         { start: '13:00', end: '13:10', text: 'Rast', nextStart: '13:10' },
         { start: '13:10', end: '14:00', text: 'Pass 5', nextStart: '14:00' },
         { start: '14:00', end: '14:10', text: 'Rast/Frukt', nextStart: '14:10' },
-        { start: '14:10', end: '14:50', text: 'Pass 6', nextStart: '08:00' },
+        { start: '14:10', end: '14:50', text: 'Pass 6', nextStart: '14:50' },
+        { start: '14:50', end: '23:59', text: 'Skoldagen slut', nextStart: '08:00' },
         { start: '00:00', end: '07:59', text: 'Förberedelse för skoldagen', nextStart: '08:00' }
     ];
 }
