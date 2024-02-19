@@ -1,6 +1,6 @@
 function getTimeEvents() {
     return [
-        { start: '08:00', end: '08:10', text: 'Samling och Närvaro', nextStart: '08:15' },
+        { start: '08:00', end: '08:15', text: 'Samling och Närvaro', nextStart: '08:15' },
         { start: '08:15', end: '09:00', text: 'Pass 1', nextStart: '09:00' },
         { start: '09:00', end: '09:20', text: 'Fika', nextStart: '09:20' },
         { start: '09:20', end: '10:20', text: 'Pass 2', nextStart: '10:20' },
@@ -11,7 +11,7 @@ function getTimeEvents() {
         { start: '13:00', end: '13:10', text: 'Rast', nextStart: '13:10' },
         { start: '13:10', end: '14:00', text: 'Pass 5', nextStart: '14:00' },
         { start: '14:00', end: '14:10', text: 'Rast/Frukt', nextStart: '14:10' },
-        { start: '14:10', end: '23:59', text: 'Pass 6', nextStart: '08:00' },
+        { start: '14:10', end: '14:50', text: 'Pass 6', nextStart: '08:00' },
         { start: '00:00', end: '07:59', text: 'Förberedelse för skoldagen', nextStart: '08:00' }
     ];
 }
