@@ -37,13 +37,13 @@ function updateContent() {
     const currentEvent = getCurrentAndNextEvent(now, events);
     const timeString = now.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' });
 
-    document.getElementById('clock').textContent = `<h1>Klockan är ${timeString}</h1>`;
+    document.getElementById('clock').textContent = `Klockan är ${timeString}`;
 
     if (currentEvent) {
         document.getElementById('currentEvent').textContent = `Aktuellt pass: ${currentEvent.text}`;
         const nextEventIndex = events.findIndex(event => event.start === currentEvent.nextStart);
         const nextEvent = events[nextEventIndex];
-        document.getElementById('nextEvent').textContent = `Nästa: ${nextEvent.text}`;
+        //document.getElementById('nextEvent').textContent = `Nästa: ${nextEvent.text}`;
 
         // Nedräkning till nästa pass
         const [nextHour, nextMinute] = nextEvent.start.split(':').map(Number);
