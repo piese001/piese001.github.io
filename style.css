@@ -1,12 +1,34 @@
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
+    display: flex;
+    justify-content: center;
 }
 
-#clock, #currentEvent, #nextEvent, #countdown {
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.schedule, .rooms {
+    margin: 10px;
+}
+
+.info-box {
     margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
 }
 
-#rooms p {
-    margin: 5px 0;
+.rooms {
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #f9f9f9;
+    width: 200px; /* Justera bredden efter behov */
+}
+
+.rooms h3 {
+    margin-top: 0;
 }
