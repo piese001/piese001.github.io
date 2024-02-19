@@ -11,11 +11,10 @@ body {
     justify-content: space-between;
     align-items: flex-start;
 }
+
 .schedule, .rooms {
     margin: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;}
+}
 
 .info-box {
     margin-bottom: 20px;
@@ -23,18 +22,22 @@ body {
     border: 1px solid #ddd;
     background-color: #f9f9f9;
 }
+
 .rooms {
     border: 1px solid #ddd;
     padding: 10px;
     background-color: #f9f9f9;
     width: 200px; /* Justera bredden efter behov */
 }
+
 .rooms h3 {
     margin-top: 0;
 }
+
 .clock {
     font-size: 24px; /* Större text för klockan */
 }
+
 .event, .countdown {
     font-weight: bold; /* Fetstil för aktuellt och kommande pass */
 }
