@@ -1,51 +1,37 @@
-/* Återställer standardmarginaler och paddings, och sätter bakgrundsfärg */
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%; /* Sätter höjden till hela viewportens höjd */
-    width: 100%; /* Sätter bredden till hela viewportens bredd */
+body {
     font-family: Arial, sans-serif;
-    background-color: #e0ffe9; /* Sätter den begärda bakgrundsfärgen */
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    background-color: #e0ffe9;
 }
 
-/* Stil för huvudcontainern */
 .container {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    height: 100vh; /* Använder viewport höjd (vh) för att ta upp hela skärmens höjd */
 }
-
-/* Justerar stilen för schemat och rummens container */
 .schedule, .rooms {
     margin: 10px;
+}
+.info-box {
+    margin-bottom: 20px;
     padding: 10px;
     border: 1px solid #ddd;
     background-color: #f9f9f9;
-    flex-grow: 1; /* Låter elementet växa och fylla tillgängligt utrymme */
 }
-
-/* Anpassar utseendet för varje informationsruta */
-.info-box {
-    margin-bottom: 20px;
+.rooms {
+    border: 1px solid #ddd;
+    padding: 10px;
     background-color: #f9f9f9;
+    width: 200px; /* Justera bredden efter behov */
 }
-
-/* Specifika anpassningar */
+.rooms h3 {
+    margin-top: 0;
+}
 .clock {
     font-size: 24px; /* Större text för klockan */
 }
-
 .event, .countdown {
     font-weight: bold; /* Fetstil för aktuellt och kommande pass */
-}
-
-.rooms {
-    width: 200px; /* Behåller en fast bredd för rummens container */
-    flex-grow: 0; /* Förhindrar att denna container växer, bibehåller fast bredd */
-}
-
-/* Om du har en footer eller andra element som ska anpassas */
-footer {
-    margin-top: auto; /* Placerar sidfoten längst ned om det finns utrymme */
 }
