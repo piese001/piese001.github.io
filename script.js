@@ -49,19 +49,25 @@ function updateContent() {
         document.getElementById('currentEvent').textContent = `Aktuellt pass: ${currentEvent.text}`;
         const nextEventIndex = events.findIndex(event => event.start === currentEvent.nextStart);
         const nextEvent = events[nextEventIndex];
-        //document.getElementById('nextEvent').textContent = `Nästa: ${nextEvent.text}`;
+        
+        const overNextEventIndex = (nextEventIndex + 1) % events.length;
+        const overNextEvent = events[overNextEventIndex];
+        
+        const nextEventDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), ...nextEvent.start.split(':').map(Number));
+        const overNextEventDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), ...overNextEvent.start.split(':').map(Number));
+        if (overNextEventDate <= nextEventDate) {
+            overNextEventDate.setDate(overNextEventDate.getDate() + 1); // Hanterar övergången över midnatt
+        }
+        const diffOverNext = overNextEventDate - now;
+        const minutesToOverNext = Math.floor(diffOverNext / 60000);
 
-        // Nedräkning till nästa pass
-        const [nextHour, nextMinute] = nextEvent.start.split(':').map(Number);
-        const nextEventDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), nextHour, nextMinute);
-        const diff = nextEventDate - now;
-        const minutes = Math.floor(diff / 60000);
-        const seconds = Math.floor((diff % 60000) / 1000);
-        document.getElementById('countdown').textContent = `${nextEvent.text} om ${minutes} minuter och ${seconds} sekunder.`;
+        document.getElementById('countdown').textContent = `${nextEvent.text} om ${Math.floor((nextEventDate - now) / 60000)} minuter. ${overNextEvent.text} om ${minutesToOverNext} minuter.`;
+        
+        updateBackgroundColor(currentEvent.text);
     } else {
         document.getElementById('currentEvent').textContent = 'Inget pågående pass.';
-        document.getElementById('nextEvent').textContent = 'Väntar på nästa pass...';
         document.getElementById('countdown').textContent = '';
+        updateBackgroundColor('');
     }
 }
 
