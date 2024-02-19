@@ -1,39 +1,62 @@
-function updateCountdown(nextEventStart) {
-    const now = new Date();
-    const [nextHour, nextMinute] = nextEventStart.split(':').map(Number);
-    const nextEventDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), nextHour, nextMinute);
-    const diff = nextEventDate - now;
-
-    const minutes = Math.floor(diff / 60000);
-    const seconds = Math.floor((diff % 60000) / 1000);
-
-    document.getElementById('countdown').textContent = `Nedräkning: ${minutes} minuter och ${seconds} sekunder till nästa händelse.`;
+function getTimeEvents() {
+    return [
+        { start: '08:00', end: '08:10', text: 'Samling och Närvaro', nextStart: '08:15' },
+        { start: '08:15', end: '09:00', text: 'Pass 1', nextStart: '09:00' },
+        { start: '09:00', end: '09:20', text: 'Fika', nextStart: '09:20' },
+        { start: '09:20', end: '10:20', text: 'Pass 2', nextStart: '10:20' },
+        { start: '10:20', end: '10:30', text: 'Rast', nextStart: '10:30' },
+        { start: '10:30', end: '11:30', text: 'Pass 3', nextStart: '11:30' },
+        { start: '11:30', end: '12:20', text: 'Lunch', nextStart: '12:20' },
+        { start: '12:20', end: '13:00', text: 'Pass 4', nextStart: '13:00' },
+        { start: '13:00', end: '13:10', text: 'Rast', nextStart: '13:10' },
+        { start: '13:10', end: '14:00', text: 'Pass 5', nextStart: '14:00' },
+        { start: '14:00', end: '14:10', text: 'Rast/Frukt', nextStart: '14:10' },
+        { start: '14:10', end: '23:59', text: 'Pass 6', nextStart: '08:00' },
+        { start: '00:00', end: '07:59', text: 'Förberedelse för skoldagen', nextStart: '08:00' }
+    ];
 }
 
-function findNextEvent(now, events) {
-    // Returnerar nästa event baserat på nuvarande tid
-    for (let i = 0; i < events.length; i++) {
-        let [startHour, startMinute] = events[i].start.split(':').map(Number);
-        let startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), startHour, startMinute);
-        if (now < startDate) {
-            return events[i];
+function getCurrentAndNextEvent(now, events) {
+    const currentTime = now.getHours() * 60 + now.getMinutes();
+    for (const event of events) {
+        const [startHour, startMinute] = event.start.split(':').map(Number);
+        const [endHour, endMinute] = event.end.split(':').map(Number);
+        const startTime = startHour * 60 + startMinute;
+        const endTime = endHour * 60 + endMinute;
+
+        if (currentTime >= startTime && currentTime < endTime) {
+            return event;
         }
     }
-    return events[0]; // Om ingen framtida händelse hittas, anta att nästa händelse är den första händelsen nästa dag
+    return null;
 }
 
 function updateContent() {
     const now = new Date();
     const events = getTimeEvents();
-    const currentEvent = findCurrentEvent(now, events);
-    const nextEvent = findNextEvent(now, events);
+    const currentEvent = getCurrentAndNextEvent(now, events);
     const timeString = now.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' });
 
     document.getElementById('clock').textContent = `Klockan är ${timeString}`;
-    document.getElementById('currentEvent').textContent = `Aktuellt pass: ${currentEvent.text}`;
-    document.getElementById('nextEvent').textContent = `Nästa: ${nextEvent.text}`;
 
-    updateCountdown(nextEvent.start);
+    if (currentEvent) {
+        document.getElementById('currentEvent').textContent = `Aktuellt pass: ${currentEvent.text}`;
+        const nextEventIndex = events.findIndex(event => event.start === currentEvent.nextStart);
+        const nextEvent = events[nextEventIndex];
+        document.getElementById('nextEvent').textContent = `Nästa: ${nextEvent.text}`;
+
+        // Nedräkning till nästa pass
+        const [nextHour, nextMinute] = nextEvent.start.split(':').map(Number);
+        const nextEventDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), nextHour, nextMinute);
+        const diff = nextEventDate - now;
+        const minutes = Math.floor(diff / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+        document.getElementById('countdown').textContent = `Nedräkning: ${minutes} minuter och ${seconds} sekunder till nästa händelse.`;
+    } else {
+        document.getElementById('currentEvent').textContent = 'Inget pågående pass.';
+        document.getElementById('nextEvent').textContent = 'Väntar på nästa pass...';
+        document.getElementById('countdown').textContent = '';
+    }
 }
 
 setInterval(updateContent, 1000);
