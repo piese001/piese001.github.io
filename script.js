@@ -37,7 +37,7 @@ function updateContent() {
     const currentEvent = getCurrentAndNextEvent(now, events);
     const timeString = now.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' });
 
-    document.getElementById('clock').textContent = `Klockan är ${timeString}`;
+    document.getElementById('clock').textContent = `<h1>Klockan är ${timeString}</h1>`;
 
     if (currentEvent) {
         document.getElementById('currentEvent').textContent = `Aktuellt pass: ${currentEvent.text}`;
@@ -51,7 +51,7 @@ function updateContent() {
         const diff = nextEventDate - now;
         const minutes = Math.floor(diff / 60000);
         const seconds = Math.floor((diff % 60000) / 1000);
-        document.getElementById('countdown').textContent = `Nedräkning: ${minutes} minuter och ${seconds} sekunder till nästa händelse.`;
+        document.getElementById('countdown').textContent = `${nextEvent.text} om ${minutes} minuter och ${seconds} sekunder.`;
     } else {
         document.getElementById('currentEvent').textContent = 'Inget pågående pass.';
         document.getElementById('nextEvent').textContent = 'Väntar på nästa pass...';
