@@ -30,7 +30,7 @@ body {
     padding: 10px;
     border: 1px solid #ddd;
     background-color: #f9f9f9;
-    font-size: calc(2vw + 2vh + 1vmin); /* Dynamisk textstorlek baserat på viewport-storlek */
+    font-size: calc(2.5vw + 2.5vh + 1vmin); /* Dynamisk textstorlek baserat på viewport-storlek */
 
     /* Andra stilar för `.info-box` behålls */
 }
@@ -42,7 +42,7 @@ body {
     border: 1px solid #ddd;
     padding: 10px;
     background-color: #f9f9f9;
-    font-size: calc(2vw + 2vh + 1vmin);
+    font-size: 2em;
 }
 
 /*.info-box, .rooms h3, .clock, .event, .countdown, .overnext {
