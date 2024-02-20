@@ -42,7 +42,7 @@ body {
     border: 1px solid #ddd;
     padding: 10px;
     background-color: #f9f9f9;
-    font-size: 2em;
+    /*font-size: 2em; */
 }
 
 /*.info-box, .rooms h3, .clock, .event, .countdown, .overnext {
@@ -60,4 +60,9 @@ body {
 .rooms h3, .clock, .event, .countdown, .overnext {
     margin-top: 0;
     /* Övriga stilar behålls oförändrade */
+}
+
+.rooms p {
+    flex: 1;
+    /* Additional styling here */
 }
