@@ -30,7 +30,7 @@ body {
     padding: 10px;
     border: 1px solid #ddd;
     background-color: #f9f9f9;
-    font-size: calc(1vw + 1vh + 0.5vmin); /* Dynamisk textstorlek baserat på viewport-storlek */
+    font-size: calc(2vw + 2vh + 1vmin); /* Dynamisk textstorlek baserat på viewport-storlek */
 
     /* Andra stilar för `.info-box` behålls */
 }
