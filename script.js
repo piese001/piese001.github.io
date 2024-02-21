@@ -80,6 +80,7 @@ function updateContent() {
 
 setInterval(updateContent, 1000);
 
-setTimeout(function() {
+/* setTimeout(function() {
     window.location.reload();
 }, 600000); // 600000 millisekunder = 10 minuter
+*/
