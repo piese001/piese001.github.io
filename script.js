@@ -17,14 +17,15 @@ function getTimeEvents() {
     ];
 }
 
+let lastEventText = "";
+
 function getCurrentAndNextEvent(now, events) {
     const currentTime = now.getHours() * 60 + now.getMinutes();
     for (const event of events) {
-        const [startHour, startMinute] = event.start.split(':').map(Number);
-        const [endHour, endMinute] = event.end.split(':').map(Number);
+        const [startHour, startMinute] = event.start.split(":").map(Number);
+        const [endHour, endMinute] = event.end.split(":").map(Number);
         const startTime = startHour * 60 + startMinute;
         const endTime = endHour * 60 + endMinute;
-
         if (currentTime >= startTime && currentTime < endTime) {
             return event;
         }
@@ -34,7 +35,7 @@ function getCurrentAndNextEvent(now, events) {
 
 function updateBackgroundColor(currentEventText) {
     const specialEvents = ['Fika', 'Rast', 'Lunch', 'Rast/Frukt', 'Skoldagen slut', 'Förberedelse för skoldagen'];
-    document.body.style.backgroundColor = specialEvents.includes(currentEventText) ? 'red' : '';
+    document.body.style.backgroundColor = specialEvents.includes(currentEventText) ? '#ffcccc' : '';
 }
 
 function updateContent() {
@@ -42,45 +43,65 @@ function updateContent() {
     const events = getTimeEvents();
     const currentEvent = getCurrentAndNextEvent(now, events);
     const timeString = now.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' });
-
-    document.getElementById('clock').textContent = `Klockan är ${timeString}`;
+    document.getElementById("clock").textContent = `Klockan är ${timeString}`;
 
     if (currentEvent) {
-        document.getElementById('currentEvent').textContent = `Aktuellt pass: ${currentEvent.text}`;
-        const nextEventIndex = events.findIndex(event => event.start === currentEvent.nextStart);
-        const nextEvent = events[nextEventIndex];
-        
-        const overNextEventIndex = (nextEventIndex + 1) % events.length;
-        const overNextEvent = events[overNextEventIndex];
-
-        // Nedräkning till nästa pass (minuter och sekunder)
-        const nextEventDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), ...nextEvent.start.split(':').map(Number));
-        const diffNext = nextEventDate - now;
-        const minutesNext = Math.floor(diffNext / 60000);
-        const secondsNext = Math.floor((diffNext % 60000) / 1000);
-        document.getElementById('countdown').textContent = `${nextEvent.text} om ${minutesNext} minuter och ${secondsNext} sekunder.`;
-        
-        // Beräknar och visar "över-nästa" event (endast minuter)
-        const overNextEventDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), ...overNextEvent.start.split(':').map(Number));
-        if (overNextEventDate <= now) {
-            overNextEventDate.setDate(overNextEventDate.getDate() + 1); // Hanterar övergången över midnatt
+        if (lastEventText !== currentEvent.text) {
+            document.getElementById("bell").play();
+            lastEventText = currentEvent.text;
         }
-        const diffOverNext = overNextEventDate - now;
-        const minutesOverNext = Math.floor(diffOverNext / 60000);
-        document.getElementById('overNextEvent').textContent = `${overNextEvent.text} om ${minutesOverNext} minuter.`;
-        
+
+        document.getElementById("currentEvent").textContent = `Aktuellt pass: ${currentEvent.text}`;
+        const nextEventIndex = events.findIndex(e => e.start === currentEvent.nextStart);
+        const nextEvent = events[nextEventIndex];
+        const overNextEvent = events[(nextEventIndex + 1) % events.length];
+
+        const nextDate = new Date(now.toDateString() + ' ' + nextEvent.start);
+        const diffNext = nextDate - now;
+        const minutes = Math.floor(diffNext / 60000);
+        const seconds = Math.floor((diffNext % 60000) / 1000);
+        document.getElementById("countdown").textContent = `${nextEvent.text} om ${minutes} minuter och ${seconds} sekunder.`;
+        document.getElementById("fsEvent").textContent = nextEvent.text;
+        document.getElementById("fsCountdown").textContent = `${minutes} min ${seconds} sek`;
+
+        const overNextDate = new Date(now.toDateString() + ' ' + overNextEvent.start);
+        if (overNextDate <= now) overNextDate.setDate(overNextDate.getDate() + 1);
+        const overMinutes = Math.floor((overNextDate - now) / 60000);
+        document.getElementById("overNextEvent").textContent = `${overNextEvent.text} om ${overMinutes} minuter.`;
+
         updateBackgroundColor(currentEvent.text);
     } else {
-        document.getElementById('currentEvent').textContent = 'Inget pågående pass.';
-        document.getElementById('countdown').textContent = '';
-        document.getElementById('overNextEvent').textContent = ''; // Rensar "över-nästa" event om inget pågående pass finns
+        document.getElementById("currentEvent").textContent = 'Inget pågående pass.';
+        document.getElementById("countdown").textContent = '';
+        document.getElementById("overNextEvent").textContent = '';
         updateBackgroundColor('');
     }
 }
 
-setInterval(updateContent, 1000);
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+}
 
-/* setTimeout(function() {
-    window.location.reload();
-}, 600000); // 600000 millisekunder = 10 minuter
-*/
+function applyStoredDarkMode() {
+    const stored = localStorage.getItem('darkMode');
+    if (stored === 'true') document.body.classList.add('dark-mode');
+}
+
+function openFullscreenCountdown() {
+    document.getElementById("fullscreenModal").classList.remove("fullscreen-hidden");
+}
+
+document.getElementById("toggleDarkMode").addEventListener("click", toggleDarkMode);
+document.getElementById("fullscreenCountdown").addEventListener("click", openFullscreenCountdown);
+
+function fetchWeather() {
+    fetch("https://opendata.smhi.se/apidocs/metfcst/index.html")
+    .then(() => {
+        document.getElementById("weather").textContent = "Väderdata kräver manuell SMHI-integrering.";
+    });
+}
+
+applyStoredDarkMode();
+setInterval(updateContent, 1000);
+fetchWeather();
