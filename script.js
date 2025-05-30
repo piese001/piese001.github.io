@@ -88,18 +88,32 @@ function applyStoredDarkMode() {
     if (stored === 'true') document.body.classList.add('dark-mode');
 }
 
-function openFullscreenCountdown() {
+function openFullscreenCountdown(event) {
+    event.stopPropagation();
     document.getElementById("fullscreenModal").classList.remove("fullscreen-hidden");
 }
 
-function closeFullscreenCountdown() {
+function closeFullscreenCountdown(event) {
+    if (event) event.stopPropagation();
     document.getElementById("fullscreenModal").classList.add("fullscreen-hidden");
 }
 
 document.getElementById("toggleDarkMode").addEventListener("click", toggleDarkMode);
 document.getElementById("fullscreenCountdown").addEventListener("click", openFullscreenCountdown);
-document.getElementById("fullscreenModal").addEventListener("click", closeFullscreenCountdown);
-document.getElementById("closeFullscreen").addEventListener("click", closeFullscreenCountdown);
+document.getElementById("fullscreenModal").addEventListener("click", function(event) {
+    if (event.target === document.getElementById("fullscreenModal")) {
+        closeFullscreenCountdown();
+    }
+});
+document.getElementById("closeFullscreen").addEventListener("click", function(event) {
+    event.stopPropagation();
+    closeFullscreenCountdown();
+});
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        closeFullscreenCountdown();
+    }
+});
 
 function fetchWeather() {
     const lat = 58.705;
