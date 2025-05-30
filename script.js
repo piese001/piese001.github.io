@@ -89,12 +89,12 @@ function applyStoredDarkMode() {
 }
 
 function openFullscreenCountdown(event) {
-    event.stopPropagation();
+    event?.stopPropagation();
     document.getElementById("fullscreenModal").classList.remove("fullscreen-hidden");
 }
 
 function closeFullscreenCountdown(event) {
-    if (event) event.stopPropagation();
+    event?.stopPropagation();
     document.getElementById("fullscreenModal").classList.add("fullscreen-hidden");
 }
 
@@ -106,8 +106,7 @@ document.getElementById("fullscreenModal").addEventListener("click", function(ev
     }
 });
 document.getElementById("closeFullscreen").addEventListener("click", function(event) {
-    event.stopPropagation();
-    closeFullscreenCountdown();
+    closeFullscreenCountdown(event);
 });
 document.addEventListener("keydown", function(event) {
     if (event.key === "Escape") {
