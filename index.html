@@ -4,15 +4,23 @@
     <meta charset="UTF-8">
     <title>Skoldagens Schema</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="controls">
+        <button id="toggleDarkMode">Mörkt/Ljust läge</button>
+        <button id="fullscreenCountdown">Helkärm Nedräkning</button>
+    </div>
+
     <div class="container">
         <div class="schedule">
             <div id="clock" class="info-box clock"></div>
             <div id="currentEvent" class="info-box event"></div>
             <div id="countdown" class="info-box countdown"></div>
-            <div id="overNextEvent" class="info-box overnext"></div> 
+            <div id="overNextEvent" class="info-box overnext"></div>
+            <div id="weather" class="info-box weather"></div>
         </div>
+
         <div class="rooms">
             <h3>Ämnen och deras salar:</h3>
             <p>Matematik: B15 och B16</p>
@@ -23,6 +31,15 @@
             <p>Provsal: B5</p>
         </div>
     </div>
+
+    <div id="fullscreenModal" class="fullscreen-hidden">
+        <div id="fullscreenContent">
+            <h1 id="fsEvent"></h1>
+            <p id="fsCountdown"></p>
+        </div>
+    </div>
+
+    <audio id="bell" src="pling.mp3" preload="auto"></audio>
     <script src="script.js"></script>
 </body>
 </html>
