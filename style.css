@@ -74,6 +74,21 @@ body {
     background-color: #005fa3;
 }
 
+#closeFullscreen {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#closeFullscreen:hover {
+    background-color: #005fa3;
+}
+
 .fullscreen-hidden {
     display: none;
 }
