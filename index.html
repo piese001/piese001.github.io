@@ -25,8 +25,8 @@
 </head>
 <body>
     <div class="controls">
-        <button id="toggleDarkMode">Mörkt/Ljust läge</button>
-        <button id="fullscreenCountdown">Helkärm Nedräkning</button>
+        <button id="toggleDarkMode" onclick="toggleDarkMode()">Mörkt/Ljust läge</button>
+        <button id="fullscreenCountdown" onclick="openFullscreenCountdown(event)">Helkärm Nedräkning</button>
     </div>
 
     <div class="container">
@@ -49,15 +49,37 @@
         </div>
     </div>
 
-    <div id="fullscreenModal" class="fullscreen-hidden">
+    <div id="fullscreenModal" class="fullscreen-hidden" onclick="if(event.target === this) closeFullscreenCountdown()">
         <div id="fullscreenContent">
             <h1 id="fsEvent"></h1>
             <p id="fsCountdown"></p>
-            <button id="closeFullscreen">Stäng</button>
+            <button id="closeFullscreen" onclick="closeFullscreenCountdown(event)">Stäng</button>
         </div>
     </div>
 
     <audio id="bell" src="pling.mp3" preload="auto"></audio>
+    <script>
+      function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+      }
+
+      function openFullscreenCountdown(event) {
+        event.stopPropagation();
+        document.getElementById("fullscreenModal").classList.remove("fullscreen-hidden");
+      }
+
+      function closeFullscreenCountdown(event) {
+        if (event) event.stopPropagation();
+        document.getElementById("fullscreenModal").classList.add("fullscreen-hidden");
+      }
+
+      document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+          closeFullscreenCountdown();
+        }
+      });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
