@@ -5,6 +5,23 @@
     <title>Skoldagens Schema</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        #closeFullscreen {
+            margin-top: 2rem;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 8px;
+            background-color: #ff5555;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #closeFullscreen:hover {
+            background-color: #cc0000;
+        }
+    </style>
 </head>
 <body>
     <div class="controls">
@@ -36,6 +53,7 @@
         <div id="fullscreenContent">
             <h1 id="fsEvent"></h1>
             <p id="fsCountdown"></p>
+            <button id="closeFullscreen">Stäng</button>
         </div>
     </div>
 
