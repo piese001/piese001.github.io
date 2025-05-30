@@ -99,6 +99,7 @@ function closeFullscreenCountdown() {
 document.getElementById("toggleDarkMode").addEventListener("click", toggleDarkMode);
 document.getElementById("fullscreenCountdown").addEventListener("click", openFullscreenCountdown);
 document.getElementById("fullscreenModal").addEventListener("click", closeFullscreenCountdown);
+document.getElementById("closeFullscreen").addEventListener("click", closeFullscreenCountdown);
 
 function fetchWeather() {
     const lat = 58.705;
