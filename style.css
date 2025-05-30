@@ -1,64 +1,116 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0; /* Tar bort marginalen för att tillåta fullskärmslayout */
+    font-family: 'Inter', sans-serif;
+    margin: 0;
     display: flex;
-    justify-content: center;
-    align-items: center; /* Centrerar innehållet vertikalt */
-    height: 100vh; /* Sätter höjden till hela viewport-höjden */
-    background-color: #e0ffe9;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f4f8;
+    color: #111;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode {
+    background-color: #121212;
+    color: #eee;
 }
 
 .container {
-    width: 90%; /* Justerar bredden för att lämna 5% marginal på varje sida */
-    height: 90%; /* Justerar höjden för att lämna 5% marginal på toppen och botten */
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    align-items: stretch; /* Gör så att barn-element sträcker sig för att fylla containerens höjd */
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
-.schedule {
-    flex: 70%;
+.schedule, .rooms {
+    flex: 1 1 45%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 100%; /* Säkerställer att `.schedule` tar upp hela höjden */
+    gap: 20px;
 }
 
-.info-box, .rooms h3, .clock, .event, .countdown, .overnext {
-    flex: 1;
-    margin: 10px; /* Justera detta värde för att kontrollera utrymmet mellan rutorna */
-    padding: 10px;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
-    font-size: calc(2.5vw + 2.5vh + 1vmin); /* Dynamisk textstorlek baserat på viewport-storlek */
-
-    /* Andra stilar för `.info-box` behålls */
+.info-box {
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: clamp(1rem, 2.5vw, 2rem);
+    transition: background-color 0.3s, color 0.3s;
 }
 
+.dark-mode .info-box {
+    background-color: #1f1f1f;
+    color: #ddd;
+}
 
-.rooms {
-    flex: 30%; /* Tilldelar 30% av bredden */
-    margin: 10px;
-    border: 1px solid #ddd;
-    padding: 10px;
-    background-color: #f9f9f9;
+.rooms h3 {
+    margin: 0;
     font-size: 1.5em;
 }
 
-/*.info-box, .rooms h3, .clock, .event, .countdown, .overnext {
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    padding: 10px;
-    background-color: #f9f9f9;
-    font-size: calc(1vw + 1vh + 0.5vmin); /* Dynamisk textstorlek baserat på viewport-storlek */
-} */
-
-.rooms {
-    /* Borttagen fast bredd för att tillåta flexibel anpassning */
+.controls {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0;
 }
 
-.rooms h3, .clock, .event, .countdown, .overnext {
-    margin-top: 0;
-    /* Övriga stilar behålls oförändrade */
+.controls button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #0077cc;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
+.controls button:hover {
+    background-color: #005fa3;
+}
+
+.fullscreen-hidden {
+    display: none;
+}
+
+#fullscreenModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 9999;
+}
+
+#fullscreenContent h1 {
+    font-size: 4rem;
+    margin: 0;
+}
+
+#fullscreenContent p {
+    font-size: 2rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .schedule, .rooms {
+        flex: 1 1 100%;
+    }
+    .info-box {
+        font-size: clamp(1rem, 4vw, 1.5rem);
+    }
+}
