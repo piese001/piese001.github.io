@@ -96,10 +96,50 @@ document.getElementById("toggleDarkMode").addEventListener("click", toggleDarkMo
 document.getElementById("fullscreenCountdown").addEventListener("click", openFullscreenCountdown);
 
 function fetchWeather() {
-    fetch("https://opendata.smhi.se/apidocs/metfcst/index.html")
-    .then(() => {
-        document.getElementById("weather").textContent = "Väderdata kräver manuell SMHI-integrering.";
-    });
+    const lat = 58.705;
+    const lon = 15.774;
+    const url = `https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/${lon}/lat/${lat}/data.json`;
+
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            const now = new Date();
+            const timeSeries = data.timeSeries;
+            const forecast = timeSeries.find(entry => new Date(entry.validTime) > now);
+
+            if (!forecast) {
+                document.getElementById("weather").textContent = "Väderdata saknas.";
+                return;
+            }
+
+            const temperature = forecast.parameters.find(p => p.name === "t").values[0];
+            const weatherSymbol = forecast.parameters.find(p => p.name === "Wsymb2").values[0];
+
+            const symbolMap = {
+                1: "☀️ Klart",
+                2: "🌤️ Lätt molnighet",
+                3: "🌥️ Molnigt",
+                4: "⛅ Halvklart",
+                5: "☁️ Molnigt",
+                6: "🌫️ Mulet",
+                7: "🌁 Dimma",
+                8: "🌦️ Lätt regn",
+                9: "🌧️ Regn",
+                10: "🌧️💧 Kraftigt regn",
+                11: "🌦️ Skurar",
+                12: "⛈️ Åska",
+                13: "🌨️ Snöblandat regn",
+                14: "❄️ Snö",
+                15: "❄️❄️ Kraftigt snöfall"
+            };
+
+            const description = symbolMap[weatherSymbol] || "🌈 Okänt väder";
+
+            document.getElementById("weather").textContent = `Väder i Finspång: ${temperature}°C, ${description}`;
+        })
+        .catch(() => {
+            document.getElementById("weather").textContent = "Kunde inte hämta väder.";
+        });
 }
 
 applyStoredDarkMode();
