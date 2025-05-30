@@ -92,8 +92,13 @@ function openFullscreenCountdown() {
     document.getElementById("fullscreenModal").classList.remove("fullscreen-hidden");
 }
 
+function closeFullscreenCountdown() {
+    document.getElementById("fullscreenModal").classList.add("fullscreen-hidden");
+}
+
 document.getElementById("toggleDarkMode").addEventListener("click", toggleDarkMode);
 document.getElementById("fullscreenCountdown").addEventListener("click", openFullscreenCountdown);
+document.getElementById("fullscreenModal").addEventListener("click", closeFullscreenCountdown);
 
 function fetchWeather() {
     const lat = 58.705;
