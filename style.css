@@ -75,18 +75,20 @@ body {
 }
 
 #closeFullscreen {
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #0077cc;
-    color: white;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    color: #666;
+    background: none;
     border: none;
-    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    opacity: 0.2;
+    transition: opacity 0.3s ease;
 }
 
 #closeFullscreen:hover {
-    background-color: #005fa3;
+    opacity: 0.6;
 }
 
 .fullscreen-hidden {
@@ -106,6 +108,11 @@ body {
     justify-content: center;
     flex-direction: column;
     z-index: 9999;
+}
+
+#fullscreenContent {
+    position: relative;
+    text-align: center;
 }
 
 #fullscreenContent h1 {
